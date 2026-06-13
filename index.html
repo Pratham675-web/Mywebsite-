@@ -1,375 +1,616 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>e-Register — School Management App</title>
-<style>
-  :root {
-    --primary: #4f46e5;
-    --primary-dark: #3730a3;
-    --primary-light: #eef2ff;
-    --accent: #06b6d4;
-    --success: #10b981;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text1: #1e293b;
-    --text2: #64748b;
-    --border: #e2e8f0;
-    --radius: 18px;
-    --shadow: 0 4px 24px rgba(79,70,229,.10);
-    --shadow-lg: 0 12px 48px rgba(79,70,229,.18);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text1); min-height: 100vh; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Register – School Management App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ── NAV ── */
-  nav { background: #fff; border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(0,0,0,.06); }
-  .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: var(--primary); }
-  .nav-brand svg { width: 32px; height: 32px; }
-  .nav-badge { font-size: 10px; background: var(--primary); color: #fff; border-radius: 6px; padding: 2px 6px; font-weight: 700; vertical-align: middle; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4ff;
+            color: #1a1a2e;
+            overflow-x: hidden;
+        }
 
-  /* ── HOME PAGE ── */
-  #page-home { display: block; }
-  #page-detail { display: none; }
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #1a1a2e 100%);
+            color: white;
+            text-align: center;
+            padding: 70px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; left: -60px;
+            width: 300px; height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #ffe066;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+        .hero h1 span { color: #ffe066; }
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            opacity: 0.88;
+            max-width: 560px;
+            margin: 0 auto 18px;
+            line-height: 1.6;
+        }
+        .hero-tagline {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
 
-  .hero { text-align: center; padding: 64px 24px 40px; }
-  .hero h1 { font-size: clamp(26px, 5vw, 42px); font-weight: 900; color: var(--text1); line-height: 1.2; margin-bottom: 12px; }
-  .hero h1 span { color: var(--primary); }
-  .hero p { color: var(--text2); font-size: 16px; max-width: 520px; margin: 0 auto 32px; line-height: 1.6; }
+        /* Download Button */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffe066, #ffa500);
+            color: #1a1a2e;
+            font-size: 1.1rem;
+            font-weight: 800;
+            padding: 18px 44px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(255,165,0,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 14px 40px rgba(255,165,0,0.6);
+        }
+        .btn-download:active { transform: scale(0.98); }
+        .btn-download i { font-size: 1.3rem; }
 
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; padding: 0 24px 64px; }
+        .hero-note {
+            margin-top: 18px;
+            font-size: 12px;
+            opacity: 0.6;
+        }
 
-  .product-card { background: var(--card); border-radius: var(--radius); border: 1.5px solid var(--border); padding: 28px; cursor: pointer; transition: all .25s; position: relative; overflow: hidden; }
-  .product-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
-  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #c7d2fe; }
-  .product-card:active { transform: scale(.98); }
-  .product-icon { width: 56px; height: 56px; background: var(--primary-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 26px; }
-  .product-name { font-size: 20px; font-weight: 800; color: var(--text1); margin-bottom: 6px; }
-  .product-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
-  .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { background: var(--primary-light); color: var(--primary); font-size: 11px; font-weight: 600; border-radius: 6px; padding: 3px 8px; }
-  .product-arrow { position: absolute; top: 28px; right: 28px; color: var(--text2); font-size: 20px; transition: transform .2s; }
-  .product-card:hover .product-arrow { transform: translateX(4px); color: var(--primary); }
+        /* Stats bar */
+        .stats-bar {
+            background: white;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            padding: 22px 16px;
+            border-right: 1px solid #f0f0f0;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-size: 1.9rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 12px; color: #666; margin-top: 3px; font-weight: 600; }
 
-  /* ── DETAIL PAGE ── */
-  .detail-back { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-size: 14px; font-weight: 600; cursor: pointer; padding: 10px 20px; border-radius: 8px; border: 1.5px solid #c7d2fe; background: var(--primary-light); margin: 24px; transition: all .2s; }
-  .detail-back:hover { background: var(--primary); color: #fff; }
+        /* Section styles */
+        section { padding: 70px 20px; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea22, #764ba222);
+            color: #667eea;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 5px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .section-title h2 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 900;
+            color: #1a1a2e;
+        }
+        .section-title p {
+            margin-top: 10px;
+            color: #555;
+            font-size: 1rem;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
 
-  .detail-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 1000px; margin: 0 auto; padding: 0 24px 60px; }
-  @media(max-width: 700px) { .detail-wrap { grid-template-columns: 1fr; } }
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(102,126,234,0.09);
+            transition: transform 0.25s, box-shadow 0.25s;
+            border: 1.5px solid #f0f0ff;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(102,126,234,0.18);
+        }
+        .feature-icon {
+            width: 54px; height: 54px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+            color: white;
+        }
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            font-size: 0.875rem;
+            color: #666;
+            line-height: 1.65;
+        }
 
-  /* LEFT PANEL */
-  .info-panel { background: var(--card); border-radius: var(--radius); border: 1.5px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
-  .info-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .info-icon { width: 64px; height: 64px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0; }
-  .info-title { font-size: 22px; font-weight: 900; color: var(--text1); }
-  .info-subtitle { font-size: 13px; color: var(--text2); margin-top: 3px; }
+        /* Key Points */
+        .keypoints-section { background: linear-gradient(135deg, #1a1a2e, #2d1b69); }
+        .keypoints-section .section-title .tag { background: rgba(255,255,255,0.1); color: #ffe066; }
+        .keypoints-section .section-title h2 { color: white; }
+        .keypoints-section .section-title p { color: rgba(255,255,255,0.7); }
 
-  .features-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text2); margin-bottom: 14px; }
-  .feature-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-  .feature-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .fi-blue { background: #eff6ff; }
-  .fi-green { background: #f0fdf4; }
-  .fi-purple { background: #faf5ff; }
-  .fi-orange { background: #fff7ed; }
-  .fi-cyan { background: #ecfeff; }
-  .fi-rose { background: #fff1f2; }
-  .feature-text strong { font-size: 14px; font-weight: 700; color: var(--text1); display: block; }
-  .feature-text span { font-size: 12px; color: var(--text2); line-height: 1.5; }
+        .keypoints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .kp-card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: background 0.2s;
+        }
+        .kp-card:hover { background: rgba(255,255,255,0.12); }
+        .kp-num {
+            min-width: 36px; height: 36px;
+            background: linear-gradient(135deg, #ffe066, #ffa500);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #1a1a2e;
+        }
+        .kp-text h4 { font-size: 0.95rem; font-weight: 800; color: white; margin-bottom: 4px; }
+        .kp-text p { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
 
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
-  .spec-item { background: var(--bg); border-radius: 10px; padding: 10px 12px; }
-  .spec-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); }
-  .spec-val { font-size: 13px; font-weight: 700; color: var(--text1); margin-top: 2px; }
+        /* Highlight strip */
+        .highlight-strip {
+            background: white;
+            padding: 50px 20px;
+        }
+        .highlight-strip .inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .hl-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .hl-item i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .hl-item h4 { font-size: 0.95rem; font-weight: 800; color: #1a1a2e; margin-bottom: 5px; }
+        .hl-item p { font-size: 0.8rem; color: #666; line-height: 1.5; }
 
-  /* RIGHT PANEL */
-  .download-panel { background: var(--card); border-radius: var(--radius); border: 1.5px solid var(--border); padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center; }
-  .dl-badge { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: var(--success); font-size: 12px; font-weight: 700; border-radius: 20px; padding: 5px 14px; border: 1px solid #bbf7d0; margin-bottom: 20px; }
-  .dl-preview { width: 100%; background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border-radius: 14px; padding: 24px; text-align: center; margin-bottom: 24px; border: 1px solid #c7d2fe; }
-  .dl-preview-icon { font-size: 52px; margin-bottom: 10px; }
-  .dl-preview-name { font-size: 18px; font-weight: 800; color: var(--primary-dark); }
-  .dl-preview-size { font-size: 12px; color: var(--text2); margin-top: 4px; }
-  
-  .dl-btn { width: 100%; background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%); color: #fff; border: none; border-radius: 14px; padding: 18px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all .2s; box-shadow: 0 4px 16px rgba(79,70,229,.35); margin-bottom: 16px; }
-  .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,.45); }
-  .dl-btn:active { transform: scale(.97); }
-  .dl-btn svg { width: 22px; height: 22px; }
-  .dl-btn.loading { background: linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%); box-shadow: none; cursor: not-allowed; transform: none; }
+        /* CTA Bottom */
+        .cta-bottom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            padding: 70px 20px;
+            color: white;
+        }
+        .cta-bottom h2 {
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+        .cta-bottom p {
+            font-size: 1rem;
+            opacity: 0.85;
+            max-width: 480px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+        }
 
-  .dl-info { font-size: 12px; color: var(--text2); text-align: center; line-height: 1.6; }
-  .dl-info strong { color: var(--text1); }
+        /* Footer */
+        footer {
+            background: #0f0f1a;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 13px;
+        }
+        footer span { color: #667eea; }
 
-  .dl-features { width: 100%; margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
-  .dl-feat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--text2); }
-  .dl-feat-row svg { width: 16px; height: 16px; color: var(--success); flex-shrink: 0; }
+        /* Pulse animation on button */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(255,165,0,0.5); }
+            70% { box-shadow: 0 0 0 18px rgba(255,165,0,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,165,0,0); }
+        }
+        .btn-download { animation: pulse-ring 2.2s infinite; }
+        .btn-download:hover { animation: none; }
 
-  .dl-progress { display: none; width: 100%; background: #f1f5f9; border-radius: 8px; height: 8px; margin-bottom: 12px; overflow: hidden; }
-  .dl-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 8px; width: 0%; transition: width .4s; }
+        /* Scroll fade in */
+        .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── FOOTER ── */
-  footer { text-align: center; padding: 24px; color: var(--text2); font-size: 12px; border-top: 1px solid var(--border); }
-</style>
+        @media (max-width: 600px) {
+            .hero { padding: 50px 16px 60px; }
+            .btn-download { font-size: 1rem; padding: 15px 30px; }
+            .stat-item { min-width: 45%; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">
-    <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M8 10h16M8 16h16M8 22h10" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
-    e-Register
-  </div>
-  <span class="nav-badge">APPS</span>
-</nav>
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+    <div class="hero-badge">⭐ भारतीय स्कूलों के लिए बनाया गया</div>
+    <h1>e-<span>Register</span></h1>
+    <div class="hero-sub">School Management System — आपके विद्यालय का सम्पूर्ण डिजिटल रजिस्टर</div>
+    <div class="hero-tagline">Attendance • Fees • Admission • Results — सब कुछ एक जगह</div>
 
-<!-- ════ HOME PAGE ════ -->
-<div id="page-home">
-  <div class="hero">
-    <h1>Smart Apps for <span>Modern Schools</span></h1>
-    <p>Download our powerful school management apps. Tap on any product to view details and download.</p>
-  </div>
+    <a href="https://pratham675-web.github.io/Mainapp/" target="_blank" class="btn-download">
+        <i class="fas fa-download"></i> अभी Download करें — FREE
+    </a>
+    <div class="hero-note">📱 Android &amp; सभी Browsers पर काम करता है &nbsp;|&nbsp; No installation required</div>
+</section>
 
-  <div class="products-grid">
-
-    <!-- Product 1 -->
-    <div class="product-card" onclick="openDetail('register')">
-      <div class="product-arrow">›</div>
-      <div class="product-icon">📚</div>
-      <div class="product-name">e-Register</div>
-      <div class="product-desc">Complete school management app — admissions, attendance, fees, results, and more. Works on any device, no installation needed.</div>
-      <div class="product-tags">
-        <span class="tag">School Mgmt</span>
-        <span class="tag">Fees</span>
-        <span class="tag">Attendance</span>
-        <span class="tag">Results</span>
-        <span class="tag">Free</span>
-      </div>
+<!-- Stats bar -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Key Features</div>
     </div>
-
-    <!-- Add more products here later -->
-
-  </div>
+    <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Free to Use</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">Cloud</div>
+        <div class="stat-label">Firebase Sync</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Installation</div>
+    </div>
 </div>
 
-<!-- ════ DETAIL PAGE ════ -->
-<div id="page-detail">
-  <div class="detail-back" onclick="goHome()">
-    ← Back to Products
-  </div>
-
-  <div class="detail-wrap">
-
-    <!-- LEFT: Info + Features -->
-    <div class="info-panel">
-      <div class="info-top">
-        <div class="info-icon">📚</div>
-        <div>
-          <div class="info-title">e-Register</div>
-          <div class="info-subtitle">School Management System · Single HTML App</div>
-        </div>
-      </div>
-
-      <div class="features-title">Key Features</div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-blue">👤</div>
-        <div class="feature-text">
-          <strong>Student Admissions</strong>
-          <span>Register new students with full details, class, section, fees structure, dress info, and photo upload.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-green">✅</div>
-        <div class="feature-text">
-          <strong>Attendance Management</strong>
-          <span>Mark daily student and teacher attendance. View monthly reports and track absences easily.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-orange">💰</div>
-        <div class="feature-text">
-          <strong>Fees Collection & Tracking</strong>
-          <span>Record payments, issue receipts, track dues, and manage monthly fee structures per class.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-purple">📊</div>
-        <div class="feature-text">
-          <strong>Result Management</strong>
-          <span>Enter exam marks, calculate results, and generate report cards for all students class-wise.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-cyan">💾</div>
-        <div class="feature-text">
-          <strong>Excel Backup & Restore</strong>
-          <span>Export all school data to Excel in one click. Restore data from backup files anytime.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-blue">👥</div>
-        <div class="feature-text">
-          <strong>Co-Admin System</strong>
-          <span>Create up to 2 co-admins with limited access. Manage their permissions and block/unblock anytime.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-rose">🔔</div>
-        <div class="feature-text">
-          <strong>Notifications & Messaging</strong>
-          <span>Receive messages from controller. Notification panel shows alerts, announcements, and system updates.</span>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon fi-green">🔐</div>
-        <div class="feature-text">
-          <strong>Secure Login & Coins</strong>
-          <span>6-digit admin code login, per-user coin balance system, and maintenance mode for app control.</span>
-        </div>
-      </div>
-
-      <div class="specs-grid">
-        <div class="spec-item"><div class="spec-label">Type</div><div class="spec-val">Web App</div></div>
-        <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-val">Any Device</div></div>
-        <div class="spec-item"><div class="spec-label">Database</div><div class="spec-val">Firebase Cloud</div></div>
-        <div class="spec-item"><div class="spec-label">Price</div><div class="spec-val" style="color:var(--success)">Free Trial</div></div>
-        <div class="spec-item"><div class="spec-label">Version</div><div class="spec-val">1.0 (2025)</div></div>
-        <div class="spec-item"><div class="spec-label">Language</div><div class="spec-val">English</div></div>
-      </div>
+<!-- ══════════════ FEATURES ══════════════ -->
+<section style="background:#f0f4ff;">
+    <div class="section-title fade-in">
+        <div class="tag">✦ मुख्य विशेषताएँ</div>
+        <h2>e-Register में क्या-क्या है?</h2>
+        <p>एक ही App में स्कूल के सभी काम — आसान, तेज़ और सुरक्षित</p>
     </div>
 
-    <!-- RIGHT: Download -->
-    <div class="download-panel">
-      <div class="dl-badge">✅ Latest Version Available</div>
+    <div class="features-grid">
 
-      <div class="dl-preview">
-        <div class="dl-preview-icon">📚</div>
-        <div class="dl-preview-name">e-Register</div>
-        <div class="dl-preview-size">School Management App</div>
-      </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-user-check"></i></div>
+            <h3>Student Attendance</h3>
+            <p>Class-wise हर छात्र की रोज़ाना उपस्थिति दर्ज करें। Monthly report और absent count एक नज़र में देखें।</p>
+        </div>
 
-      <div class="dl-progress" id="dl-progress">
-        <div class="dl-progress-bar" id="dl-bar"></div>
-      </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <h3>Teacher Attendance</h3>
+            <p>सभी शिक्षकों की attendance आसानी से mark करें। Date-wise records सुरक्षित रहते हैं।</p>
+        </div>
 
-      <button class="dl-btn" id="dl-btn" onclick="downloadApp()">
-        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        Download Free
-      </button>
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-rupee-sign"></i></div>
+            <h3>Fees Card & Structure</h3>
+            <p>Tuition Fees, Exam Fees, Additional Fees — सब automatically calculate होती हैं। Month select करो, total आ जाता है।</p>
+        </div>
 
-      <div class="dl-info">
-        Tap the button above to download<br>
-        <strong>e-Register</strong> to your device.
-      </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>Exam Fees (Month-wise)</h3>
+            <p>हर class के लिए अलग-अलग महीने में Exam Fees set करें। Selected months में auto-add हो जाती है।</p>
+        </div>
 
-      <div class="dl-features">
-        <div class="dl-feat-row">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          No installation required — opens directly
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
+            <h3>New Admission</h3>
+            <p>Single और Family Admission — दोनों सुविधा। पूरी जानकारी जैसे नाम, DOB, Aadhar, पुरानी school — सब record होता है।</p>
         </div>
-        <div class="dl-feat-row">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Works on Mobile, Tablet & Desktop
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-users"></i></div>
+            <h3>Family Fees Management</h3>
+            <p>एक ही family के कई बच्चों की fees एक साथ manage करें। Family badge और free student marking भी।</p>
         </div>
-        <div class="dl-feat-row">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          All data saved securely on Firebase
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h3>Admission Billing Summary</h3>
+            <p>Admission के समय Books, Dress, और अन्य items की billing — discount और balance के साथ। Print भी करें।</p>
         </div>
-        <div class="dl-feat-row">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Free to download · Trial included
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-history"></i></div>
+            <h3>Payment History</h3>
+            <p>हर छात्र की पिछली सभी fees payments का record। पुराना balance automatically next fees में जुड़ता है।</p>
         </div>
-        <div class="dl-feat-row">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Regular updates &amp; support available
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-star"></i></div>
+            <h3>Free Student Categories</h3>
+            <p>Tuition Free, Exam Free, Additional Free — अलग-अलग categories में छात्रों को mark करें। Badge automatically लगता है।</p>
         </div>
-      </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Admission Approval System</h3>
+            <p>नई admission pending रहती है जब तक admin approve नहीं करता। Roll number auto-assign होता है।</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-file-excel"></i></div>
+            <h3>Excel Backup & Restore</h3>
+            <p>पूरे school का data Excel में export करें और ज़रूरत पड़ने पर restore भी करें। Data कभी नहीं जाएगा।</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-print"></i></div>
+            <h3>Print Functionality</h3>
+            <p>Fees Card, Billing Summary, Attendance — सब कुछ print-ready format में। School name और logo के साथ।</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+            <h3>Firebase Cloud Sync</h3>
+            <p>Data Firebase पर automatically save होता है। कोई भी device से login करो, data वहीं मिलेगा।</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+            <h3>Co-Admin Support</h3>
+            <p>Main admin के साथ-साथ Co-admins भी add करें। अलग-अलग features का access दें।</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon"><i class="fas fa-bell"></i></div>
+            <h3>Notification System</h3>
+            <p>Controller द्वारा भेजे गए messages और notifications App में directly दिखते हैं।</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════ KEY POINTS ══════════════ -->
+<section class="keypoints-section">
+    <div class="section-title fade-in">
+        <div class="tag">✦ Key Points</div>
+        <h2 style="color:white;">क्यों चुनें e-Register?</h2>
+        <p>हर उस कारण जो इसे बाकी apps से अलग बनाता है</p>
     </div>
 
-  </div>
-</div>
+    <div class="keypoints-grid">
 
+        <div class="kp-card fade-in">
+            <div class="kp-num">01</div>
+            <div class="kp-text">
+                <h4>बिल्कुल मुफ़्त — No Hidden Cost</h4>
+                <p>App download करना और use करना पूरी तरह FREE है। कोई छिपा हुआ charge नहीं।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">02</div>
+            <div class="kp-text">
+                <h4>Internet के बिना भी काम करता है</h4>
+                <p>Data localStorage में भी save होता है। Internet न हो तो भी records accessible रहते हैं।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">03</div>
+            <div class="kp-text">
+                <h4>कोई Installation नहीं</h4>
+                <p>Browser में directly open होता है। App Store / Play Store की ज़रूरत नहीं।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">04</div>
+            <div class="kp-text">
+                <h4>सुरक्षित Login System</h4>
+                <p>Unique school code और password से login। 30 मिनट बाद automatic session timeout।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">05</div>
+            <div class="kp-text">
+                <h4>Automatic Calculations</h4>
+                <p>Tuition + Exam + Old Balance — सब automatically जुड़ता है। Manual गिनती की ज़रूरत नहीं।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">06</div>
+            <div class="kp-text">
+                <h4>Family Fees एक साथ</h4>
+                <p>एक ही family के सभी बच्चों की fees एक screen पर manage। Family card में discount भी।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">07</div>
+            <div class="kp-text">
+                <h4>Print-Ready Receipts</h4>
+                <p>Fees receipt और billing summary professional format में print करें। School logo सहित।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">08</div>
+            <div class="kp-text">
+                <h4>Excel में Data Export</h4>
+                <p>पूरा school data Excel file में backup करें। Restore भी एक click में।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">09</div>
+            <div class="kp-text">
+                <h4>Real-Time Cloud Sync</h4>
+                <p>Firebase से data real-time sync होता है। Multiple devices पर same data।</p>
+            </div>
+        </div>
+
+        <div class="kp-card fade-in">
+            <div class="kp-num">10</div>
+            <div class="kp-text">
+                <h4>हिंदी-friendly Interface</h4>
+                <p>Simple और clean design — बिना training के कोई भी use कर सकता है।</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════ HIGHLIGHTS ══════════════ -->
+<section class="highlight-strip">
+    <div class="inner">
+        <div class="hl-item fade-in">
+            <i class="fas fa-lock"></i>
+            <h4>100% Data Secure</h4>
+            <p>Firebase encryption और local backup — data हमेशा safe</p>
+        </div>
+        <div class="hl-item fade-in">
+            <i class="fas fa-mobile-alt"></i>
+            <h4>Mobile Friendly</h4>
+            <p>Phone, Tablet, Computer — सभी पर perfectly चलता है</p>
+        </div>
+        <div class="hl-item fade-in">
+            <i class="fas fa-bolt"></i>
+            <h4>Fast & Lightweight</h4>
+            <p>कोई heavy app नहीं — browser में instantly open</p>
+        </div>
+        <div class="hl-item fade-in">
+            <i class="fas fa-sync-alt"></i>
+            <h4>Auto Backup</h4>
+            <p>Data cloud में automatically save — कभी नहीं खोएगा</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ BOTTOM CTA ══════════════ -->
+<section class="cta-bottom">
+    <h2 class="fade-in">आज ही शुरू करें — बिल्कुल FREE!</h2>
+    <p class="fade-in">e-Register download करें और अपने school का पूरा management digitize करें। किसी training की ज़रूरत नहीं।</p>
+    <a href="https://pratham675-web.github.io/Mainapp/" target="_blank" class="btn-download fade-in">
+        <i class="fas fa-download"></i> Download e-Register — Free
+    </a>
+    <div style="margin-top:18px; font-size:13px; opacity:0.65;">
+        🔗 Link: pratham675-web.github.io/Mainapp
+    </div>
+</section>
+
+<!-- Footer -->
 <footer>
-  © 2025 e-Register · School Management Solutions &nbsp;|&nbsp; All rights reserved
+    &copy; 2025 <span>e-Register</span> — School Management System &nbsp;|&nbsp; Designed for Indian Schools 🇮🇳
 </footer>
 
 <script>
-  // ── FILE DOWNLOAD URL ─────────────────────────────────
-  const FILE_URL = "https://pratham675-web.github.io/register-app/";
-  const FILE_NAME = "eRegister.html";
-  // ─────────────────────────────────────────────────────
+    // Scroll fade-in animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12 });
 
-  function openDetail(id) {
-    document.getElementById('page-home').style.display = 'none';
-    document.getElementById('page-detail').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goHome() {
-    document.getElementById('page-detail').style.display = 'none';
-    document.getElementById('page-home').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  async function downloadApp() {
-    const btn = document.getElementById('dl-btn');
-    const SPINNER = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="22" height="22" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>`;
-    const DL_ICON = `<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" width="22" height="22"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
-    const OK_ICON = `<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" width="22" height="22"><polyline points="20 6 9 17 4 12"/></svg>`;
-
-    btn.classList.add('loading');
-    btn.innerHTML = SPINNER + '&nbsp; Downloading...';
-
-    try {
-      const response = await fetch(FILE_URL, { cache: 'no-store' });
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const blob = await response.blob();
-
-      // Create a named blob with correct type
-      const namedBlob = new Blob([blob], { type: 'text/html' });
-      const blobUrl = URL.createObjectURL(namedBlob);
-
-      // Most reliable mobile download: navigate to blob URL
-      // This triggers browser "save file" dialog on Android Chrome
-      const a = document.createElement('a');
-      a.href = blobUrl;
-      a.download = FILE_NAME;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      // Fallback for webviews that ignore a.click()
-      setTimeout(() => { window.location.assign(blobUrl); }, 300);
-      setTimeout(() => {
-        URL.revokeObjectURL(blobUrl);
-        document.body.removeChild(a);
-      }, 8000);
-
-      btn.classList.remove('loading');
-      btn.innerHTML = OK_ICON + '&nbsp; Downloaded!';
-      setTimeout(() => { btn.innerHTML = DL_ICON + '&nbsp; Download Free'; }, 3000);
-
-    } catch (err) {
-      btn.classList.remove('loading');
-      btn.innerHTML = DL_ICON + '&nbsp; Download Free';
-      // Hard fallback: open file directly in browser
-      window.location.href = FILE_URL;
-    }
-  }
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
-<style>
-  @keyframes spin { to { transform: rotate(360deg); } }
-</style>
 </body>
 </html>
